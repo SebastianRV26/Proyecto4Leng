@@ -135,7 +135,9 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewProjectActionPerformed
-        
+        NewProject newProject = new NewProject(); 
+        newProject.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnNewProjectActionPerformed
 
     /**

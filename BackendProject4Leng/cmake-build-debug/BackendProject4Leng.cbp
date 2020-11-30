@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="BackendProject4Leng"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\mingw32\;CMake Files\..\..\..\..\..\..\mingw32\lib\;CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\;CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BackendProject4Leng">
+				<Option output="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/BackendProject4Leng.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/mingw32/include"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 BackendProject4Leng"/>
+					<CompileFile command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BackendProject4Leng/fast">
+				<Option output="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/BackendProject4Leng.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/mingw32/include"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 BackendProject4Leng/fast"/>
+					<CompileFile command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/main.c">
+			<Option target="BackendProject4Leng"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLConfigDependencies.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLSharedTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLSharedTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/Usuario/Documents/JavaLenguajes/Proyecto4Leng/BackendProject4Leng/../../../../../../mingw32/lib/cmake/SFML/SFMLSharedTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

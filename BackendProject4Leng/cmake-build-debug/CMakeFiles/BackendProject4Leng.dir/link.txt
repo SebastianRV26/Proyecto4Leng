@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\BackendProject4Leng.dir/objects.a
+C:\mingw32\bin\ar.exe cr CMakeFiles\BackendProject4Leng.dir/objects.a @CMakeFiles\BackendProject4Leng.dir\objects1.rsp
+C:\mingw32\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\BackendProject4Leng.dir/objects.a -Wl,--no-whole-archive  -o BackendProject4Leng.exe -Wl,--out-implib,libBackendProject4Leng.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BackendProject4Leng.dir\linklibs.rsp

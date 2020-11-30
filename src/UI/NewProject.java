@@ -5,6 +5,10 @@
  */
 package UI;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Sebas
@@ -123,17 +127,66 @@ public class NewProject extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(btnCreateProject)
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProjectActionPerformed
-
+        String typeText;
+        String sizeText;
+        //jComboBox2.getSelectedItem();
+        String typeTextS = String.valueOf(jComboBox2.getSelectedItem());
+        switch (typeTextS) {
+            case "Arial":
+                typeText = "0";
+                break;
+            case "Times New Roman":
+                typeText = "1";
+                break;
+            case "Nirvana":
+                typeText = "2";
+                break;
+            default:
+                typeText = "0";
+                break;
+        }
+        String sizeTextS = String.valueOf(jComboBox1.getSelectedItem());
+        switch (sizeTextS) {
+            case "Letra pequeña":
+                sizeText = "0";
+                break;
+            case "Letra grande":
+                sizeText = "1";
+                break;
+            default:
+                sizeText = "0";
+                break;
+        }
+        String project = jTextField1.getText();
+        String text1 = jTextField2.getText();
+        if (text1 == null){
+            text1="";
+        }
+        String text2 = jTextField3.getText();
+        if (text2 == null){
+            text1="";
+        }
+        System.out.println("sizeText "+sizeText+" typeText "+typeText+" text1 "+text1+" text2 "+text2);
+        try {
+            //String[] params = {"", };
+            Process process = new ProcessBuilder("C:\\Users\\Usuario\\Documents\\JavaLenguajes\\Proyecto4Leng\\BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe", 
+                    "ruta", sizeText, typeText, text1, text2).start();
+            System.out.println("Entró");
+        } catch (IOException ex) {
+            Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No entró");
+        }
         
+        changeFrame();
     }//GEN-LAST:event_btnCreateProjectActionPerformed
 
     /**
@@ -185,4 +238,10 @@ public class NewProject extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    private void changeFrame() {
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
+        dispose();
+    }
 }
