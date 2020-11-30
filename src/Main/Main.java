@@ -20,6 +20,7 @@ public class Main {
         // TODO code application logic here
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
+        mainFrame.setLocationRelativeTo(null);
     }
     
 }

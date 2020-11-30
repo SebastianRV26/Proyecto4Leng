@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "string.h"
 #include <SFML/Graphics.h>
 
 /**
@@ -13,7 +14,7 @@
 /// Variables globales.
 unsigned int width, height;
 unsigned int sizeText;
-unsigned int size;
+char *size;
 int flag = 0;
 
 /**
@@ -91,22 +92,24 @@ void saveImage(struct sfImage *image, char *path){
  * @param sizeTextP 0 pequeño, 1 grande.
  * @param typeText 0 Arial, 1 Times New Roman, 2 Nirvana.
  */
-char* setTypes(int sizeTextP, int typeText){
+char* setTypes(char *sizeTextP, char *typeText){
     if (flag == 0){
         return NULL;
     }
-    size = sizeTextP;
-    if (sizeTextP == 0){
+    //size = sizeTextP;
+    size = (char*) malloc(1);
+    strcpy(size, sizeTextP);
+    if (strcmp(sizeTextP, "0") == 0){
         printf("\nUsted escogio letra pequenniaa");
         sizeText = height/15;
-    } else if (sizeTextP == 1){
+    } else if (strcmp(sizeTextP, "1") == 0){
         printf("\nUsted escogio letra grande");
         sizeText = height/10;
     }
-    if (typeText == 1){
+    if (strcmp(typeText, "1") == 0){
         printf("\nUsted escogio Times New Roman");
-        return "C:\\Users\\Usuario\\Downloads\\fonts\\times.ttf";
-    } else if (typeText == 2){
+        return "fonts\\times.ttf"; // C:\Users\Usuario\Downloads\
+    } else if (strcmp(typeText, "2") == 0){
         printf("\nUsted escogio Nirvana");
         return "C:\\Users\\Usuario\\Downloads\\fonts\\NIRVANA.TTF";
     }
@@ -149,7 +152,7 @@ sfImage *setText(char *text1, char *text2, struct sfImage *image, char *typeFont
     /// Establecer la posición del textp
     sfVector2f position1 = {200, 10};
     unsigned int pos = height-(height/12);
-    if (size == 1){
+    if (strcmp(size,"1") == 0){
         pos = height-(height/8);
     }
     sfVector2f position2 = {200, (float)pos};
@@ -179,49 +182,40 @@ sfImage *setText(char *text1, char *text2, struct sfImage *image, char *typeFont
     return imageWithText;
 }
 
+const char *concatPathSaveImage(const char *imageName) {
+    if(imageName != NULL){
+        //createFolder();
+        const char *path = "C:\\Users\\edubi\\OneDrive\\Pictures\\Postales\\";
+        char *filename = (char *) malloc(strlen(path) + strlen(imageName) + 1);
+        strcpy(filename, path);
+        strcat(filename, imageName);
+        return filename;
+    }
+    return NULL;
+}
+
 /**
  * Pruebas.
  *
  * @return 0.
  */
 int main(int argc, char *argv[]) {
-    /*char *ruta = argv[0];
-    //char str2[10] = "Hello!";
-    //x = atoi(str2);
-    //int sizeTextG = strtol(ruta);
-
     printf("\n\n//////////////////////////////////////////////////////////////////");
     /// Paso 1
-    // ruta
+    char *ruta = argv[5];
+    char *nameImageOutput = argv[6];
     //sfImage *image = loadImage(ruta);
-    sfImage *image = loadImage("C:\\Users\\Usuario\\Downloads\\okabe.jpg");
-    //sfImage *image = loadImage(ruta);
-    int sizeText1 = (int)strtol(argv[2], (char **)NULL, 10);
-    int typeText1 = (int)strtol(argv[3], (char **)NULL, 10);
+    //sfImage *image = loadImage("C:\\Users\\Usuario\\Downloads\\okabe.jpg");
+    sfImage *image = loadImage(ruta);
     /// Paso 2
     // sizeText and typeText
-    //char *typeFont = setTypes(0, 0);
-    char *typeFont = setTypes(sizeText1, typeText1);
+    char *typeFont = setTypes(argv[1], argv[2]);
     /// Paso 3
-
     // arriba, abajo
-    image = setText(argv[4],argv[5], image, typeFont, 0);
+    image = setText(argv[3],argv[4], image, typeFont, 0);
     /// Paso 4
-    saveImage(image, "C:\\Users\\Usuario\\Downloads\\output.png");
-*/
-    /*char *ruta = argv[0];
-    printf("Hola desde C %s",ruta);*/
+    saveImage(image, nameImageOutput);
 
-    printf("\n//////////////////////////////////////////////////////////////////");
-    printf("\n\tPrueba 0 con imagen muy pequennia");
-    /// Paso 1
-    sfImage *image = loadImage("C:\\Users\\Usuario\\Downloads\\okabe.jpg");
-    /// Paso 2
-    char *typeFont = setTypes(1, 1);
-    /// Paso 3
-    image = setText(argv[4], argv[5], image, typeFont, 1);
-    /// Paso 4
-    saveImage(image, "C:\\Users\\Usuario\\Downloads\\output0.png");
     printf("Hola desde C %i",argc);
     return 0;
 }

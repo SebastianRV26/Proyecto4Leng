@@ -5,9 +5,14 @@
  */
 package UI;
 
+import Classes.Project;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,6 +48,8 @@ public class NewProject extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        btnLoadImage = new javax.swing.JButton();
+        jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,12 +76,24 @@ public class NewProject extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Times New Roman", "Nirvana", "Arial" }));
 
+        btnLoadImage.setText("Cargar");
+        btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadImageActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addComponent(btnCreateProject))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
@@ -90,17 +109,17 @@ public class NewProject extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, 179, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(239, 239, 239)
-                        .addComponent(btnCreateProject)))
-                .addContainerGap(268, Short.MAX_VALUE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(jTextField4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLoadImage)))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,8 +129,11 @@ public class NewProject extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnLoadImage)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,11 +151,13 @@ public class NewProject extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateProject)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    File archivo;
 
     private void btnCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProjectActionPerformed
         String typeText;
@@ -168,26 +192,46 @@ public class NewProject extends javax.swing.JFrame {
         }
         String project = jTextField1.getText();
         String text1 = jTextField2.getText();
-        if (text1 == null){
-            text1="";
+        if (text1 == null) {
+            text1 = "";
         }
         String text2 = jTextField3.getText();
-        if (text2 == null){
-            text1="";
+        if (text2 == null) {
+            text1 = "";
         }
-        System.out.println("sizeText "+sizeText+" typeText "+typeText+" text1 "+text1+" text2 "+text2);
+        System.out.println("sizeText " + sizeText + " typeText " + typeText + " text1 " + text1 + " text2 " + text2);
+        String ruta = jTextField4.getText();
+        ruta = ruta.replace("\\", "\\\\");
+        // String[] arrOfStr = ruta.split("\\", 10); 
+        // System.out.println(arrOfStr);
+        System.out.println("ruta "+ruta);
+        String output = "output\\"+project + "Despues.png";
+        System.out.println("Output " + output);
         try {
-            //String[] params = {"", };
-            Process process = new ProcessBuilder("C:\\Users\\Usuario\\Documents\\JavaLenguajes\\Proyecto4Leng\\BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe", 
-                    "ruta", sizeText, typeText, text1, text2).start();
+            Process process = new ProcessBuilder("C:\\Users\\Usuario\\Documents\\JavaLenguajes\\Proyecto4Leng\\BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
+                    sizeText, typeText, text1, text2, ruta, output).start();
             System.out.println("Entró");
+            createProject(project, ruta, output);
         } catch (IOException ex) {
             Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("No entró");
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
         }
-        
         changeFrame();
     }//GEN-LAST:event_btnCreateProjectActionPerformed
+
+    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+        int resultado;
+        FileChooser buscador = new FileChooser();
+        FileNameExtensionFilter format = new FileNameExtensionFilter("JPG, PNG, BMP", "jpg", "png", "bmp");
+        buscador.jFileChooser1.setFileFilter(format);
+        resultado = buscador.jFileChooser1.showOpenDialog(null);
+        if (JFileChooser.APPROVE_OPTION == resultado) {
+            archivo = buscador.jFileChooser1.getSelectedFile();
+            String direction = archivo.getAbsolutePath();
+            jTextField4.setText(direction);
+        }
+    }//GEN-LAST:event_btnLoadImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +270,7 @@ public class NewProject extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateProject;
+    private javax.swing.JButton btnLoadImage;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -237,11 +282,17 @@ public class NewProject extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
     private void changeFrame() {
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
+        mainFrame.setLocationRelativeTo(null);
         dispose();
+    }
+
+    private void createProject(String nameProject, String rutaOriginal, String rutaSalida) {
+        // Project project = new Project(nameProject, rutaOriginal, rutaSalida);
     }
 }
