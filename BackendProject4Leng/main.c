@@ -108,13 +108,13 @@ char* setTypes(char *sizeTextP, char *typeText){
     }
     if (strcmp(typeText, "1") == 0){
         printf("\nUsted escogio Times New Roman");
-        return "fonts\\times.ttf"; // C:\Users\Usuario\Downloads\
+        return "fonts\\times.ttf";
     } else if (strcmp(typeText, "2") == 0){
         printf("\nUsted escogio Nirvana");
-        return "C:\\Users\\Usuario\\Downloads\\fonts\\NIRVANA.TTF";
+        return "fonts\\NIRVANA.TTF";
     }
     printf("\nUsted escogio Arial");
-    return "C:\\Users\\Usuario\\Downloads\\fonts\\arial.ttf";
+    return "fonts\\arial.ttf";
 }
 
 /**

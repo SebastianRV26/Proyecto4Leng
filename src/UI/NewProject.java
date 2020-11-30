@@ -208,7 +208,7 @@ public class NewProject extends javax.swing.JFrame {
         String output = "output\\"+project + "Despues.png";
         System.out.println("Output " + output);
         try {
-            Process process = new ProcessBuilder("C:\\Users\\Usuario\\Documents\\JavaLenguajes\\Proyecto4Leng\\BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
+            Process process = new ProcessBuilder("BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
                     sizeText, typeText, text1, text2, ruta, output).start();
             System.out.println("Entró");
             createProject(project, ruta, output);
