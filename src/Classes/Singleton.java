@@ -33,4 +33,12 @@ public class Singleton {
         return this.proyectos;
     }
     
+    public Project getProject(String name){
+        for (Project project:proyectos){
+            if (project.getNombreProyecto().equals(name)){
+                return project;
+            }
+        }
+        return null;
+    }
 }

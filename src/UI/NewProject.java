@@ -5,7 +5,9 @@
  */
 package UI;
 
+import Classes.Image;
 import Classes.Project;
+import Classes.Singleton;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -211,7 +213,9 @@ public class NewProject extends javax.swing.JFrame {
             Process process = new ProcessBuilder("BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
                     sizeText, typeText, text1, text2, ruta, output).start();
             System.out.println("Entró");
-            createProject(project, ruta, output);
+            Image originalImage = createImage(ruta);
+            Image outputImage = createImage(output);
+            createProject(project, originalImage, outputImage);
         } catch (IOException ex) {
             Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("No entró");
@@ -292,7 +296,14 @@ public class NewProject extends javax.swing.JFrame {
         dispose();
     }
 
-    private void createProject(String nameProject, String rutaOriginal, String rutaSalida) {
-        // Project project = new Project(nameProject, rutaOriginal, rutaSalida);
+    private void createProject(String nameProject, Image originalImage, Image outputImage) {
+        Singleton singleton = Singleton.getInstance();
+        Project project = new Project(nameProject, originalImage, outputImage);
+        singleton.addProject(project);
+    }
+
+    private Image createImage(String ruta) {
+        Image image = new Image(ruta, "PNG", 0);
+        return image;
     }
 }
