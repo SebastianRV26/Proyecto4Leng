@@ -5,7 +5,13 @@
  */
 package Main;
 
+import Classes.Project;
+import Classes.Singleton;
 import UI.MainFrame;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,9 +24,12 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Singleton singleton = Singleton.getInstance();
+        singleton.loadProjects();
+
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
     }
-    
+
 }

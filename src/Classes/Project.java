@@ -5,11 +5,13 @@
  */
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Sebas
  */
-public class Project {
+public class Project implements Serializable{
  
     private String nombreProyecto;
     private Image originalImage; 

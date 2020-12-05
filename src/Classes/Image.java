@@ -5,19 +5,28 @@
  */
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Sebas
  */
-public class Image {
+public class Image implements Serializable{
+
     private String ruta;
     private String tipoArchivo; // Imagen PNG
     private double pesoMemoria; // 2.1 MB
+    private String largo;
+    private String altura;
+    private String ultimaModificacion;
 
-    public Image(String ruta, String tipoArchivo, double pesoMemoria) {
+    public Image(String ruta, String tipoArchivo, double pesoMemoria, String largo, String altura, String ultimaModificacion) {
         this.ruta = ruta;
         this.tipoArchivo = tipoArchivo;
         this.pesoMemoria = pesoMemoria;
+        this.largo = largo;
+        this.altura = altura;
+        this.ultimaModificacion = ultimaModificacion;
     }
 
     public String getRuta() {
@@ -43,6 +52,16 @@ public class Image {
     public void setPesoMemoria(double pesoMemoria) {
         this.pesoMemoria = pesoMemoria;
     }
-    
-    
+
+    public String getInfo() {
+        String info = "";
+        info += "Ruta " + ruta
+                + "\nExtención " + tipoArchivo
+                + "\nTamaño " + largo + "x" + altura
+                + "\nTamaño en memoria " + pesoMemoria + " bytes"
+                + "\nÚltima modificación: " + ultimaModificacion;
+
+        return info;
+    }
+
 }

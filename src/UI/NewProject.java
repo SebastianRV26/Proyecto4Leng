@@ -8,10 +8,20 @@ package UI;
 import Classes.Image;
 import Classes.Project;
 import Classes.Singleton;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -22,11 +32,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class NewProject extends javax.swing.JFrame {
 
+    Singleton singleton = Singleton.getInstance();
+
     /**
      * Creates new form NewProject
      */
     public NewProject() {
         initComponents();
+        close();
     }
 
     /**
@@ -52,6 +65,7 @@ public class NewProject extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         btnLoadImage = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +101,13 @@ public class NewProject extends javax.swing.JFrame {
 
         jTextField4.setEnabled(false);
 
+        btnClose.setText("Atrás");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +141,10 @@ public class NewProject extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                             .addComponent(jTextField4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLoadImage)))
+                        .addComponent(btnLoadImage))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnClose)))
                 .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,7 +177,9 @@ public class NewProject extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateProject)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addComponent(btnClose)
+                .addContainerGap())
         );
 
         pack();
@@ -162,66 +188,72 @@ public class NewProject extends javax.swing.JFrame {
     File archivo;
 
     private void btnCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProjectActionPerformed
-        String typeText;
-        String sizeText;
-        //jComboBox2.getSelectedItem();
-        String typeTextS = String.valueOf(jComboBox2.getSelectedItem());
-        switch (typeTextS) {
-            case "Arial":
-                typeText = "0";
-                break;
-            case "Times New Roman":
-                typeText = "1";
-                break;
-            case "Nirvana":
-                typeText = "2";
-                break;
-            default:
-                typeText = "0";
-                break;
+        if (validateFields()) {
+
+            String typeText;
+            String sizeText;
+            //jComboBox2.getSelectedItem();
+            String typeTextS = String.valueOf(jComboBox2.getSelectedItem());
+            switch (typeTextS) {
+                case "Arial":
+                    typeText = "0";
+                    break;
+                case "Times New Roman":
+                    typeText = "1";
+                    break;
+                case "Nirvana":
+                    typeText = "2";
+                    break;
+                default:
+                    typeText = "0";
+                    break;
+            }
+            String sizeTextS = String.valueOf(jComboBox1.getSelectedItem());
+            switch (sizeTextS) {
+                case "Letra pequeña":
+                    sizeText = "0";
+                    break;
+                case "Letra grande":
+                    sizeText = "1";
+                    break;
+                default:
+                    sizeText = "0";
+                    break;
+            }
+            String project = jTextField1.getText();
+            String text1 = jTextField2.getText();
+            if (text1.equals("")) {
+                text1 = " ";
+            }
+            String text2 = jTextField3.getText();
+            System.out.println("text2 " + text2);
+            if (text2.equals("")) {
+                text2 = " ";
+            }
+            System.out.println("sizeText " + sizeText + " typeText " + typeText + " text1 " + text1 + " text2 " + text2);
+            String ruta = jTextField4.getText();
+            ruta = ruta.replace("\\", "\\\\");
+            String output = "output\\" + project + "Despues.png";
+            try {
+                Process process = new ProcessBuilder("BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
+                        sizeText, typeText, text1, text2, ruta, output).start();
+                Image originalImage = createImage(ruta, getExtention(ruta), getWeight(ruta), getLasstModification(ruta));
+
+                Thread.sleep(1000);
+
+                Image outputImage = createImage(output, "PNG", getWeight(output), getDateNow());
+                createProject(project, originalImage, outputImage);
+            } catch (IOException ex) {
+                Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            changeFrame();
+            //saveProjects();
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor escribir el nombre del proyecto y seleccionar una imagen");
         }
-        String sizeTextS = String.valueOf(jComboBox1.getSelectedItem());
-        switch (sizeTextS) {
-            case "Letra pequeña":
-                sizeText = "0";
-                break;
-            case "Letra grande":
-                sizeText = "1";
-                break;
-            default:
-                sizeText = "0";
-                break;
-        }
-        String project = jTextField1.getText();
-        String text1 = jTextField2.getText();
-        if (text1 == null) {
-            text1 = "";
-        }
-        String text2 = jTextField3.getText();
-        if (text2 == null) {
-            text1 = "";
-        }
-        System.out.println("sizeText " + sizeText + " typeText " + typeText + " text1 " + text1 + " text2 " + text2);
-        String ruta = jTextField4.getText();
-        ruta = ruta.replace("\\", "\\\\");
-        // String[] arrOfStr = ruta.split("\\", 10); 
-        // System.out.println(arrOfStr);
-        System.out.println("ruta "+ruta);
-        String output = "output\\"+project + "Despues.png";
-        System.out.println("Output " + output);
-        try {
-            Process process = new ProcessBuilder("BackendProject4Leng\\cmake-build-debug\\BackendProject4Leng.exe",
-                    sizeText, typeText, text1, text2, ruta, output).start();
-            System.out.println("Entró");
-            Image originalImage = createImage(ruta);
-            Image outputImage = createImage(output);
-            createProject(project, originalImage, outputImage);
-        } catch (IOException ex) {
-            Logger.getLogger(NewProject.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No entró");
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
-        }
-        changeFrame();
     }//GEN-LAST:event_btnCreateProjectActionPerformed
 
     private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
@@ -236,6 +268,10 @@ public class NewProject extends javax.swing.JFrame {
             jTextField4.setText(direction);
         }
     }//GEN-LAST:event_btnLoadImageActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        changeFrame();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,6 +309,7 @@ public class NewProject extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnCreateProject;
     private javax.swing.JButton btnLoadImage;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -289,6 +326,13 @@ public class NewProject extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
+    private boolean validateFields() {
+        if (jTextField1.getText().isEmpty() || jTextField4.getText().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     private void changeFrame() {
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
@@ -297,13 +341,88 @@ public class NewProject extends javax.swing.JFrame {
     }
 
     private void createProject(String nameProject, Image originalImage, Image outputImage) {
-        Singleton singleton = Singleton.getInstance();
+
         Project project = new Project(nameProject, originalImage, outputImage);
         singleton.addProject(project);
     }
 
-    private Image createImage(String ruta) {
-        Image image = new Image(ruta, "PNG", 0);
+    private Image createImage(String ruta, String extencion, double weigth, String lastModification) {
+        ImageIcon img = new ImageIcon(ruta);
+        Image image = new Image(ruta, extencion, weigth, Integer.toString(img.getIconWidth()), Integer.toString(img.getIconHeight()), lastModification);
+
         return image;
+    }
+
+    private String getExtention(String ruta) {
+        String[] splt = ruta.split("\\.");
+        String extencion = splt[splt.length - 1].toUpperCase();
+        return extencion;
+    }
+
+    private double getWeight(String ruta) {
+        File fichero = new File(ruta);
+        double weigth = fichero.length();
+        return weigth;
+    }
+
+    private String getLasstModification(String ruta) {
+        File file = new File(ruta);
+
+        BasicFileAttributes attrs;
+        try {
+            attrs = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+            FileTime time = attrs.creationTime();
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String formatted = simpleDateFormat.format(new Date(time.toMillis()));
+            return formatted;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private String getDateNow() {
+        try {
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String formatted = simpleDateFormat.format(new Date());
+            return formatted;
+        } catch (Exception e) {
+
+        }
+        return "";
+    }
+
+    private void saveProjects() {
+        try {
+            FileOutputStream fos = new FileOutputStream("projectsData.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(singleton.getProjects());
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private void close() {
+        try {
+
+            this.setDefaultCloseOperation(MainFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+
+                public void windowClosing(WindowEvent e) {
+                    saveProjects();
+                    salir();
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("Se callo");
+        }
+    }
+
+    private void salir() {
+        System.exit(0);
     }
 }
