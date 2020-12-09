@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes;
+
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Singleton {
 
     private ArrayList<Project> proyectos = new ArrayList<>();
+    private ArrayList<String> plugins = new ArrayList<>();
     private Image imageActual = null;
 
     private static Singleton instance = null;
@@ -36,6 +37,14 @@ public class Singleton {
         return this.proyectos;
     }
 
+    public void addPlugin(String plugin) {
+        plugins.add(plugin);
+    }
+    
+    public ArrayList<String> getPlugins() {
+        return this.plugins;
+    }
+    
     public void setProjects(ArrayList<Project> newProjects) {
         this.proyectos = newProjects;
     }
@@ -64,13 +73,20 @@ public class Singleton {
             FileInputStream fis = new FileInputStream("projectsData.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            ArrayList<Project> proyectos = (ArrayList<Project>) ois.readObject();
+            ArrayList<Project> proyectos1 = (ArrayList<Project>) ois.readObject();
             /*for (Project proyecto : proyectos) {
                 System.out.println(proyecto.getNombreProyecto());
             }*/
-            setProjects(proyectos);
+            setProjects(proyectos1);
 
             //llenarLista();
+            ois.close();
+            fis.close();
+            
+            fis = new FileInputStream("pluginsData.txt");
+            ois = new ObjectInputStream(fis);
+            ArrayList<String> plugins1 = (ArrayList<String>) ois.readObject();
+            this.plugins = plugins1;
             ois.close();
             fis.close();
         } catch (IOException ioe) {

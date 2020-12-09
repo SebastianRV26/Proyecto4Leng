@@ -1,12 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package UI;
-
-import Classes.Project;
-import Classes.Singleton;
 import java.awt.Desktop;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -15,18 +6,12 @@ import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -259,7 +244,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnPlugins1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlugins1ActionPerformed
         singleton.setImageActual(projectGlobal.getOriginalImage());
-        Plugins plugin = new Plugins();
+        MainPlugins plugin = new MainPlugins();
         plugin.setVisible(true);
         plugin.setLocationRelativeTo(null);
         dispose();
@@ -267,7 +252,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnPlugins2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlugins2ActionPerformed
         singleton.setImageActual(projectGlobal.getOutputImage());
-        Plugins plugin = new Plugins();
+        MainPlugins plugin = new MainPlugins();
         plugin.setVisible(true);
         plugin.setLocationRelativeTo(null);
         dispose();
