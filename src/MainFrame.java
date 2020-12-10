@@ -1,3 +1,4 @@
+
 import java.awt.Desktop;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -20,7 +21,8 @@ import java.util.logging.Logger;
 public class MainFrame extends javax.swing.JFrame {
 
     private Project projectGlobal = null;
-    Singleton singleton = Singleton.getInstance();
+    private final Singleton singleton = Singleton.getInstance();
+    private final DefaultListModel<String> model = new DefaultListModel<>();
 
     /**
      * Creates new form MainFrame
@@ -59,6 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPlugins2 = new javax.swing.JButton();
         btnWatchImg1 = new javax.swing.JButton();
         btnWatchImg2 = new javax.swing.JButton();
+        btnRemoveProject = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +123,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnRemoveProject.setText("Eliminar proyecto");
+        btnRemoveProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveProjectActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,8 +158,10 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(btnWatchImg2)))
                         .addContainerGap(21, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(btnNewProject)
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRemoveProject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNewProject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProperties1)
@@ -178,7 +190,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNewProject))
+                        .addComponent(btnNewProject)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRemoveProject))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -201,7 +215,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(btnProperties2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPlugins2)))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,72 +229,76 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewProjectActionPerformed
 
     private void btnProperties1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProperties1ActionPerformed
-
-        /*OutputStream out = new FileOutputStream(new File(imgdirectory + fileName));
-        BufferedImage img = ImageIO.read(is);
-        BufferedImage scaledImg;
-
-        int width = img.getWidth();
-        int height = img.getHeight();*/
-
- /*try {
-            InputStream input = new FileInputStream("C:\\Users\\Usuario\\Downloads\\okabe.jpg");
-            BufferedImage img = ImageIO.read(input);
-            img.get
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No encontrado");
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("F");
-        }*/
-        JOptionPane.showMessageDialog(null, projectGlobal.getOriginalImage().getInfo());
+        if (validateList()) {
+            JOptionPane.showMessageDialog(null, projectGlobal.getOriginalImage().getInfo());
+        }
     }//GEN-LAST:event_btnProperties1ActionPerformed
 
     private void btnProperties2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProperties2ActionPerformed
+        if (validateList()) {
+            JOptionPane.showMessageDialog(null, projectGlobal.getOutputImage().getInfo());
+        }
 
-        JOptionPane.showMessageDialog(null, projectGlobal.getOutputImage().getInfo());
     }//GEN-LAST:event_btnProperties2ActionPerformed
 
     private void btnPlugins1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlugins1ActionPerformed
-        singleton.setImageActual(projectGlobal.getOriginalImage());
-        MainPlugins plugin = new MainPlugins();
-        plugin.setVisible(true);
-        plugin.setLocationRelativeTo(null);
-        dispose();
+        if (validateList()) {
+            singleton.setImageActual(projectGlobal.getOriginalImage());
+            MainPlugins plugin = new MainPlugins();
+            plugin.setVisible(true);
+            plugin.setLocationRelativeTo(null);
+            dispose();
+        }
     }//GEN-LAST:event_btnPlugins1ActionPerformed
 
     private void btnPlugins2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlugins2ActionPerformed
-        singleton.setImageActual(projectGlobal.getOutputImage());
-        MainPlugins plugin = new MainPlugins();
-        plugin.setVisible(true);
-        plugin.setLocationRelativeTo(null);
-        dispose();
+        if (validateList()) {
+            singleton.setImageActual(projectGlobal.getOutputImage());
+            MainPlugins plugin = new MainPlugins();
+            plugin.setVisible(true);
+            plugin.setLocationRelativeTo(null);
+            dispose();
+        }
     }//GEN-LAST:event_btnPlugins2ActionPerformed
 
     private void btnWatchImg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWatchImg1ActionPerformed
-        singleton.setImageActual(projectGlobal.getOriginalImage());
-        try {
-            String Imagen = singleton.getImageActual().getRuta();
-            File archivo = new File(Imagen);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(archivo);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        if (validateList()) {
+            singleton.setImageActual(projectGlobal.getOriginalImage());
+            try {
+                String Imagen = singleton.getImageActual().getRuta();
+                File archivo = new File(Imagen);
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(archivo);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnWatchImg1ActionPerformed
 
     private void btnWatchImg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWatchImg2ActionPerformed
-        singleton.setImageActual(projectGlobal.getOutputImage());
-        try {
-            String Imagen = singleton.getImageActual().getRuta();
-            File archivo = new File(Imagen);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(archivo);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        if (validateList()) {
+            singleton.setImageActual(projectGlobal.getOutputImage());
+            try {
+                String Imagen = singleton.getImageActual().getRuta();
+                File archivo = new File(Imagen);
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(archivo);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_btnWatchImg2ActionPerformed
+
+    private void btnRemoveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveProjectActionPerformed
+        if (validateList()) {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro de que desea eliminar ese proyecto de la lista?", "Alerta!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (resp == 0) {
+                singleton.removeProjec(jList1.getSelectedValue());
+                model.remove(jList1.getSelectedIndex());
+            }
+        }
+    }//GEN-LAST:event_btnRemoveProjectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,6 +341,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPlugins2;
     private javax.swing.JButton btnProperties1;
     private javax.swing.JButton btnProperties2;
+    private javax.swing.JButton btnRemoveProject;
     private javax.swing.JButton btnWatchImg1;
     private javax.swing.JButton btnWatchImg2;
     private javax.swing.JLabel jLabel1;
@@ -336,11 +355,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void llenarLista() {
         ArrayList<Project> proyectos = singleton.getProjects();
-
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for (Project project : proyectos) {
+        proyectos.forEach((project) -> {
             model.addElement(project.getNombreProyecto());
-        }
+        });
         jList1.setModel(model);
     }
 
@@ -400,7 +417,14 @@ public class MainFrame extends javax.swing.JFrame {
             oos.close();
             fos.close();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
+    }
+
+    private boolean validateList() {
+        if (jList1.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento");
+            return false;
+        }
+        return true;
     }
 }

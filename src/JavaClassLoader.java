@@ -23,18 +23,13 @@ public class JavaClassLoader extends ClassLoader {
             // Create a new instance from the loaded class
             Constructor<?> constructor = loadedMyClass.getConstructor();
             Plugin myClassObject = (Plugin) constructor.newInstance();
-
-            myClassObject.loadFile(path);
             
             // Getting the target method from the loaded class and invoke it using its name
-            //Method method = loadedMyClass.getMethod("loadFile");
-            //System.out.println("Invoked method name: " + method.getName());
-            //method.invoke(myClassObject);
+            Method method = loadedMyClass.getMethod("loadFile", String.class);
+            System.out.println("Invoked method name: " + method.getName());
+            method.invoke(myClassObject, path);
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }

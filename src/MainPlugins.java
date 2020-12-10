@@ -57,6 +57,7 @@ public class MainPlugins extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         btnUsePlugin = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
+        btnRemovePlugin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +73,8 @@ public class MainPlugins extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setEnabled(false);
+
         btnUsePlugin.setText("Utilizar plugin");
         btnUsePlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +86,13 @@ public class MainPlugins extends javax.swing.JFrame {
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseActionPerformed(evt);
+            }
+        });
+
+        btnRemovePlugin.setText("Eliminar plugin");
+        btnRemovePlugin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePluginActionPerformed(evt);
             }
         });
 
@@ -101,15 +111,18 @@ public class MainPlugins extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(94, 94, 94)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnUsePlugin)
-                                    .addComponent(btnAddPlugin)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAddPlugin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUsePlugin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(258, 258, 258)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnClose)))
+                        .addComponent(btnClose))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btnRemovePlugin)))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,9 +139,11 @@ public class MainPlugins extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddPlugin)
-                        .addGap(28, 28, 28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUsePlugin)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemovePlugin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(btnClose)
                 .addContainerGap())
         );
@@ -139,7 +154,7 @@ public class MainPlugins extends javax.swing.JFrame {
     private void btnAddPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPluginActionPerformed
         int resultado;
         FileChooser buscador = new FileChooser();
-        FileNameExtensionFilter format = new FileNameExtensionFilter("class, java", "class", "java");
+        FileNameExtensionFilter format = new FileNameExtensionFilter("class, java, jar", "class", "java", "jar");
         buscador.jFileChooser1.setFileFilter(format);
         resultado = buscador.jFileChooser1.showOpenDialog(null);
         if (JFileChooser.APPROVE_OPTION == resultado) {
@@ -149,9 +164,17 @@ public class MainPlugins extends javax.swing.JFrame {
             System.out.println(archivo.getName());
             String[] splt = (archivo.getName()).split("\\.");
             String name = splt[0];
-            
-            singleton.addPlugin(name);
-            model.addElement(name);
+
+            // 
+            String folder = direction.replace(archivo.getName(), "");
+            System.out.println(folder);
+
+            File srcDir = new File(folder);
+
+            String destination = "src/";
+            File destDir = new File(destination);
+
+            copyFolder(srcDir, destDir);
 
             try {
                 copyFileUsingStream(new File(direction), new File("src\\" + archivo.getName()));
@@ -170,14 +193,17 @@ public class MainPlugins extends javax.swing.JFrame {
                 dlg.setVisible(false);
             }).start();
             dlg.setVisible(true);
+
+            singleton.addPlugin(name);
+            model.addElement(name);
         }
     }//GEN-LAST:event_btnAddPluginActionPerformed
 
     private void btnUsePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsePluginActionPerformed
-        // TODO add your handling code here:
-
-        JavaClassLoader javaClassLoader = new JavaClassLoader();
-        javaClassLoader.invokeClassMethod(jList1.getSelectedValue(),singleton.getImageActual().getRuta());
+        if (validateList()) {
+            JavaClassLoader javaClassLoader = new JavaClassLoader();
+            javaClassLoader.invokeClassMethod(jList1.getSelectedValue(), singleton.getImageActual().getRuta());
+        }
     }//GEN-LAST:event_btnUsePluginActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -186,6 +212,16 @@ public class MainPlugins extends javax.swing.JFrame {
         mainFrame.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnRemovePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePluginActionPerformed
+        if (validateList()) {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro de que desea eliminar ese plugin de la lista?", "Alerta!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (resp == 0) {
+                singleton.removePlugin(jList1.getSelectedValue());
+                model.remove(jList1.getSelectedIndex());
+            }
+        }
+    }//GEN-LAST:event_btnRemovePluginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +261,7 @@ public class MainPlugins extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPlugin;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnRemovePlugin;
     private javax.swing.JButton btnUsePlugin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
@@ -286,7 +323,59 @@ public class MainPlugins extends javax.swing.JFrame {
             oos.close();
             fos.close();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+        }
+    }
+
+    private boolean validateList() {
+        if (jList1.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento");
+            return false;
+        }
+        return true;
+    }
+
+    //// 
+    public static void copyFolder(File source, File destination) {
+        if (source.isDirectory()) {
+            if (!destination.exists()) {
+                destination.mkdirs();
+            }
+
+            String files[] = source.list();
+
+            for (String file : files) {
+                File srcFile = new File(source, file);
+                File destFile = new File(destination, file);
+
+                copyFolder(srcFile, destFile);
+            }
+        } else {
+            InputStream in = null;
+            OutputStream out = null;
+
+            try {
+                in = new FileInputStream(source);
+                out = new FileOutputStream(destination);
+
+                byte[] buffer = new byte[1024];
+
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+            } catch (Exception e) {
+                try {
+                    in.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                try {
+                    out.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
     }
 }

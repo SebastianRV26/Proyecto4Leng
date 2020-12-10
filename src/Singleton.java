@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,7 +29,23 @@ public class Singleton {
     }
 
     public void addProject(Project project) {
-        proyectos.add(project);
+        this.proyectos.add(project);
+    }
+
+    public Project searchProject(String project) {
+        for (Project proyecto : proyectos) {
+            if (proyecto.getNombreProyecto().equals(project)) {
+                return proyecto;
+            }
+        }
+        return null;
+    }
+
+    public void removeProjec(String project) {
+        Project proyecto = searchProject(project);
+        if (proyecto != null) {
+            this.proyectos.remove(proyecto);
+        }
     }
 
     public ArrayList<Project> getProjects() {
@@ -38,13 +53,17 @@ public class Singleton {
     }
 
     public void addPlugin(String plugin) {
-        plugins.add(plugin);
+        this.plugins.add(plugin);
     }
-    
+
+    public void removePlugin(String plugin) {
+        this.plugins.remove(plugin);
+    }
+
     public ArrayList<String> getPlugins() {
         return this.plugins;
     }
-    
+
     public void setProjects(ArrayList<Project> newProjects) {
         this.proyectos = newProjects;
     }
@@ -59,7 +78,7 @@ public class Singleton {
     }
 
     public Image getImageActual() {
-        return imageActual;
+        return this.imageActual;
     }
 
     public void setImageActual(Image imageActual) {
@@ -67,36 +86,24 @@ public class Singleton {
     }
 
     public void loadProjects() {
-        //ArrayList<String> namesList = new ArrayList<String>();
 
         try {
             FileInputStream fis = new FileInputStream("projectsData.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             ArrayList<Project> proyectos1 = (ArrayList<Project>) ois.readObject();
-            /*for (Project proyecto : proyectos) {
-                System.out.println(proyecto.getNombreProyecto());
-            }*/
             setProjects(proyectos1);
 
-            //llenarLista();
             ois.close();
             fis.close();
-            
-            fis = new FileInputStream("pluginsData.txt");
-            ois = new ObjectInputStream(fis);
-            ArrayList<String> plugins1 = (ArrayList<String>) ois.readObject();
+
+            FileInputStream fis1 = new FileInputStream("pluginsData.txt");
+            ObjectInputStream ois1 = new ObjectInputStream(fis1);
+            ArrayList<String> plugins1 = (ArrayList<String>) ois1.readObject();
             this.plugins = plugins1;
-            ois.close();
-            fis.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Class not found");
-            c.printStackTrace();
-            return;
-        } catch (Exception ex) {
+            ois1.close();
+            fis1.close();
+        } catch (IOException | ClassNotFoundException ex) {
 
         }
 
