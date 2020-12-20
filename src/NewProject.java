@@ -216,11 +216,10 @@ public class NewProject extends javax.swing.JFrame {
                 text1 = " ";
             }
             String text2 = jTextField3.getText();
-            System.out.println("text2 " + text2);
             if (text2.equals("")) {
                 text2 = " ";
             }
-            System.out.println("sizeText " + sizeText + " typeText " + typeText + " text1 " + text1 + " text2 " + text2);
+            // System.out.println("sizeText " + sizeText + " typeText " + typeText + " text1 " + text1 + " text2 " + text2);
             String ruta = jTextField4.getText();
             ruta = ruta.replace("\\", "\\\\");
             String output = "output\\" + project + "Despues.png";
@@ -408,7 +407,6 @@ public class NewProject extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            System.out.println("Se callo");
         }
     }
 

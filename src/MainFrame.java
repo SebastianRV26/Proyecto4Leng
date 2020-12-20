@@ -362,14 +362,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void mostrarImagenes() {
-        /*try {
-            ImageIcon ImgIcon = new ImageIcon();
-            Icon icon = new ImageIcon(ImgIcon.getImage().getScaledInstance());
-            jLabel4.setIcon(icon);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al abrir "+ex);
-        }*/
-
         String name = jList1.getSelectedValue();
         Project project = singleton.getProject(name);
         projectGlobal = project;
@@ -401,7 +393,6 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            System.out.println("Se callo");
         }
     }
 

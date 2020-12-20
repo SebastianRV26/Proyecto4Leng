@@ -154,7 +154,7 @@ public class MainPlugins extends javax.swing.JFrame {
     private void btnAddPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPluginActionPerformed
         int resultado;
         FileChooser buscador = new FileChooser();
-        FileNameExtensionFilter format = new FileNameExtensionFilter("class, java, jar", "class", "java", "jar");
+        FileNameExtensionFilter format = new FileNameExtensionFilter("class", "class");
         buscador.jFileChooser1.setFileFilter(format);
         resultado = buscador.jFileChooser1.showOpenDialog(null);
         if (JFileChooser.APPROVE_OPTION == resultado) {
@@ -184,7 +184,6 @@ public class MainPlugins extends javax.swing.JFrame {
 
             JOptionPane msg = new JOptionPane("Cargando Plugin", JOptionPane.WARNING_MESSAGE);
             final JDialog dlg = msg.createDialog("Advertencia");
-            //dlg.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
             new Thread(() -> {
                 try {
                     Thread.sleep(10000);
@@ -334,7 +333,6 @@ public class MainPlugins extends javax.swing.JFrame {
         return true;
     }
 
-    //// 
     public static void copyFolder(File source, File destination) {
         if (source.isDirectory()) {
             if (!destination.exists()) {
